@@ -46,7 +46,7 @@ def send_email(event):
 def sns_notification(event):
     sns = boto3.client('sns')
     response = sns.publish(
-        TopicArn='arn:aws:sns:us-west-2:031679903962:newproject-NewprojectTopic2D161F5E-7N7IKAK5xxx',   #add the topic arn 
+        TopicArn='arn:aws:sns:us-west-2:03167990xxxx:newproject-NewprojectTopic2D161F5E-7N7IKAK5xxx',   #add the topic arn 
         Message='Alert: pod or node broken',    
     )
 
