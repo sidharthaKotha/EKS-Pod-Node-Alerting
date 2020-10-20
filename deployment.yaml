@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-iam-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eks-iam-test
+  template:
+    metadata:
+      labels:
+        app: eks-iam-test
+    spec:
+      serviceAccountName: iam-test
+      containers:
+        - name: eks-alert-container
+          image: thetechgroup/eks-system-alerting:v4
+          env:
+          # Define the environment variable
+            - name: TopicArn
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: eks-alerting-variables
+                  # Specify the key associated with the value
+                  key: TopicArn
+            - name: region
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: eks-alerting-variables
+                  # Specify the key associated with the value
+                  key: region_name
+            - name: ACCESS_ID
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: eks-alerting-variables
+                  # Specify the key associated with the value
+                  key: ACCESS_ID
+            - name: ACCESS_KEY
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: eks-alerting-variables
+                  # Specify the key associated with the value
+                  key: ACCESS_KEY
