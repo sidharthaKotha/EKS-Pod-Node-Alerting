@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+name: eks-alerting-variables
+namespace: default
+data:
+  ACCESS_ID: <AWS_ACCESS_KEY_ID>
+  ACCESS_KEY: <AWS_SECRET_ACCESS_KEY>
+  #provide the topic arn to which your email and mobile number subscribed
+  TopicArn: arn:aws:sns:us-west-2:031679xxxx:newproject-NewprojectTopic2D161F5E-7N7IKAxxxx 
+  region_name: <region of your SNS topic>
