@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: iam-test
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: resources-watch
+rules:
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get","watch","list"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get","watch","list"]
+- apiGroups: ["extensions"]
+  resources: ["ingresses"]
+  verbs: ["get","watch","list"]
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["list","watch"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: resources-watch
+subjects:
+- kind: ServiceAccount
+  name: iam-test
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: resources-watch
+  apiGroup: rbac.authorization.k8s.io
